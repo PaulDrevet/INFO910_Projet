@@ -1,12 +1,18 @@
+# restapi-service.yaml
+#
+# Ce fichier définit un Service Kubernetes pour l'API REST.
+# Le service de type NodePort expose l'API REST à l'extérieur du cluster via un port spécifique.
+# Tu pourras accéder à l'API REST depuis l'extérieur via l'adresse IP d'un nœud Kubernetes et le port NodePort configuré.
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: restapi-service
+  name: restapi-service  # Le nom du service Kubernetes pour l'API REST.
 spec:
-  type: ClusterIP
+  type: NodePort  # Type de service qui expose le service sur un port externe du nœud.
   selector:
-    app: restapi
+    app: restapi  # Ce service sélectionne les pods ayant l'étiquette "app: restapi".
   ports:
-  - protocol: TCP
-    port: 3000
-    targetPort: 3000
+  - port: 3000  # Le port interne sur lequel l'API REST écoute dans le cluster.
+    targetPort: 3000  # Le port exposé dans le conteneur de l'API REST (doit correspondre au containerPort du déploiement).
+    nodePort: 30080  # Le port externe via lequel l'API REST sera accessible à l'extérieur du cluster.

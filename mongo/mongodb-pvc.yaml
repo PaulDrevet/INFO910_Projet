@@ -1,3 +1,5 @@
+# mongodb-pvc.yaml
+#
 # Ce fichier définit un PersistentVolumeClaim (PVC), qui demande un stockage persistant pour MongoDB. 
 # Le volume persistant est utilisé pour stocker les données de MongoDB afin qu'elles ne soient pas perdues si le pod est recréé.
 

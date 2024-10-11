@@ -1,3 +1,5 @@
+# mongodb-statefulset.yaml
+#
 # Ce fichier définit un StatefulSet Kubernetes pour MongoDB. 
 # Un StatefulSet assure que les pods ont un identifiant stable et un stockage persistant dédié.
 

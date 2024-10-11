@@ -1,3 +1,5 @@
+# mongodb-service.yaml
+#
 # Ce fichier définit un Service Kubernetes qui expose MongoDB à l'intérieur du cluster.
 # Le service sans ClusterIP (avec clusterIP: None) est utilisé pour les StatefulSets, car il permet une découverte de service par DNS.
 
@@ -6,9 +8,10 @@ kind: Service
 metadata:
   name: mongodb  # Le nom du service, utilisé pour que les pods MongoDB puissent se découvrir entre eux.
 spec:
-  clusterIP: None  # Aucun ClusterIP, ce qui signifie que ce service n'est pas exposé à l'extérieur du cluster et sert pour la découverte DNS.
+  clusterIP: None  # Aucune adresse IP n'est attribuée au service, car il est utilisé pour la découverte de service par DNS.
   selector:
     app: mongodb  # Ce service sélectionne les pods ayant l'étiquette "app: mongodb".
   ports:
   - port: 27017  # Le port sur lequel MongoDB écoute (port par défaut de MongoDB).
     targetPort: 27017  # Le port exposé dans le conteneur MongoDB.
+

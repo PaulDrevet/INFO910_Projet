@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+    name: restapi
+    labels:
+        app: restapi
+
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: restapi
+    template:
+        metadata:
+            labels:
+                app: restapi
+        spec:
+            containers:
+                - name: restapi
+                  image: restapi:latest # Remplacez par le nom de votre image après build
+                  ports:
+                      - containerPort: 3000 # Supposons que votre API écoute sur le port 3000
+                  env:
+                      - name: MONGO_URI
+                        valueFrom:
+                            secretKeyRef:
+                                name: mongodb-secrets
+                                key: mongo-uri # Remplacez par le secret correspondant
+                      - name: MONGO_INITDB_DATABASE
+                        valueFrom:
+                            secretKeyRef:
+                                name: mongodb-secrets
+                                key: mongo-initdb-database # Remplacez par le secret correspondant
+                  volumeMounts:
+                      - name: restapi-data
+                        mountPath: /data # Emplacement du volume dans le conteneur
+                  resources:
+                        requests:
+                            memory: "128Mi"
+                            cpu: "250m"
+                        limits:
+                            memory: "512Mi"
+                            cpu: "500m"
+            volumes:
+                - name: restapi-data
+                  persistentVolumeClaim:
+                      claimName: restapi-pvc

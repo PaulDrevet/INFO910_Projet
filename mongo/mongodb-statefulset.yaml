@@ -1,0 +1,34 @@
+# Ce fichier définit un StatefulSet Kubernetes pour MongoDB. 
+# Un StatefulSet assure que les pods ont un identifiant stable et un stockage persistant dédié.
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb  # Le nom du StatefulSet.
+spec:
+  serviceName: mongodb  # Le service utilisé pour la découverte des pods MongoDB (doit correspondre au nom du service défini dans mongodb-services.yaml).
+  replicas: 1  # Nombre de réplicas du pod MongoDB. 1 signifie qu'il y aura un seul pod MongoDB.
+  selector:
+    matchLabels:
+      app: mongodb  # Sélectionne les pods qui ont l'étiquette "app: mongodb".
+  template:
+    metadata:
+      labels:
+        app: mongodb  # Ajoute l'étiquette "app: mongodb" aux pods pour qu'ils soient liés au service.
+    spec:
+      containers:
+      - name: mongodb  # Nom du conteneur dans le pod.
+        image: mongo:latest  # Image Docker officielle de MongoDB.
+        ports:
+        - containerPort: 27017  # Le port sur lequel MongoDB écoute à l'intérieur du conteneur.
+        volumeMounts:
+        - name: mongodb-data  # Nom du volume monté (correspond à la définition de PVC dans volumeClaimTemplates).
+          mountPath: /data/db  # Le répertoire à l'intérieur du conteneur où MongoDB stocke ses données.
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-data  # Nom du PVC à créer automatiquement pour chaque pod du StatefulSet.
+    spec:
+      accessModes: [ "ReadWriteOnce" ]  # Le volume ne peut être monté qu'en lecture-écriture sur un seul nœud à la fois.
+      resources:
+        requests:
+          storage: 1Gi  # Quantité de stockage demandé pour chaque PVC (doit être aligné avec mongodb-pvc.yaml).

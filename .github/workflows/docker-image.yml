@@ -28,11 +28,11 @@ jobs:
     # Step 4: Build the Docker image and tag it (replace with your Docker Hub username/repo)
     - name: Build and tag Docker image
       run: |
-        docker build -t YOUR_DOCKERHUB_USERNAME/pelliculum-rest:latest 
-        docker tag YOUR_DOCKERHUB_USERNAME/pelliculum-rest:latest YOUR_DOCKERHUB_USERNAME/pelliculum-rest:${{ github.sha }}
+        docker build -t realdragonma/pelliculum-rest:latest 
+        docker tag realdragonma/pelliculum-rest:latest realdragonma/pelliculum-rest:${{ github.sha }}
 
     # Step 5: Push the Docker image to Docker Hub
     - name: Push Docker image
       run: |
-        docker push YOUR_DOCKERHUB_USERNAME/pelliculum-rest:latest
-        docker push YOUR_DOCKERHUB_USERNAME/pelliculum-rest:${{ github.sha }}
+        docker push realdragonma/pelliculum-rest:latest
+        docker push realdragonma/pelliculum-rest:${{ github.sha }}

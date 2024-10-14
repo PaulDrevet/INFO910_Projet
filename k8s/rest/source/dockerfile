@@ -1,0 +1,13 @@
+FROM node:18-alpine
+
+RUN apk update 
+
+# Installer yarn et supervisor
+RUN yarn global add supervisor
+
+# Installer yarn et supervisor
+RUN apk add yarn && yarn global add supervisor
+
+WORKDIR /data
+
+ENTRYPOINT yarn install && supervisor -W src/.

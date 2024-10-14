@@ -22,13 +22,13 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: realdragonma  
-        password: Lolol_2002*
+        username: ${{ secrets.DOCKER_USERNAME }}  
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     # Step 4: Build the Docker image and tag it (replace with your Docker Hub username/repo)
     - name: Build and tag Docker image
       run: |
-        docker build -t realdragonma/pelliculum-rest:latest 
+        docker build -t realdragonma/pelliculum-rest:latest ./services/rest
         docker tag realdragonma/pelliculum-rest:latest realdragonma/pelliculum-rest:${{ github.sha }}
 
     # Step 5: Push the Docker image to Docker Hub

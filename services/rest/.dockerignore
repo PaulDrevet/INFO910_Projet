@@ -1,0 +1,23 @@
+# Ignorer le dossier node_modules (sera réinstallé dans le conteneur)
+node_modules
+
+# Ignorer les fichiers de configuration spécifiques à l'IDE
+.vscode/
+.idea/
+
+# Ignorer les fichiers temporaires du système
+*.log
+*.tmp
+*.swp
+
+# Ignorer les fichiers Git
+.git
+.gitignore
+
+# Ignorer Dockerfile et le fichier .dockerignore dans l'image
+Dockerfile
+.dockerignore
+
+# Ignorer les fichiers de config environnement local
+.env
+.env.local

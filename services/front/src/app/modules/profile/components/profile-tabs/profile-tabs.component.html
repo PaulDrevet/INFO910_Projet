@@ -1,0 +1,18 @@
+<div>
+    <!-- Tabs -->
+    <div class="relative flex space-x-16 rounded-lg bg-[#161616] py-2.5 pb-1.5 pr-16">
+        <div class="absolute -bottom-0 left-0 h-0.5 w-0 rounded bg-red-500 transition-all" id="marker"></div>
+        <a (click)="selectTab('classic'); indicator($event)" [ngClass]="{'text-white' : activeTab === 'classic'}" class="tracking-w tab cursor-pointer" id="classic">Profil</a>
+        <a (click)="selectTab('friends'); indicator($event)" [ngClass]="{'text-white' : activeTab === 'friends'}" class="tracking-w tab cursor-pointer" id="friends">Amis</a>
+        <a (click)="selectTab('watchlist'); indicator($event)" class="tracking-w tab cursor-pointer">Watchlist</a>
+        <a (click)="selectTab('list'); indicator($event)" class="tracking-w tab cursor-pointer">Listes</a>
+        <a (click)="selectTab('films'); indicator($event)" class="tracking-w tab cursor-pointer">Films</a>
+    </div>
+
+    <!-- Active Tab Content -->
+    <div class="pt-10">
+        <ng-content></ng-content>
+    </div>
+</div>
+
+<style></style>

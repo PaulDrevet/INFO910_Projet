@@ -1,0 +1,74 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+@import "tailwindcss/base"
+@import "tailwindcss/components"
+@import "tailwindcss/utilities"
+
+@import 'css-star-rating/scss/star-rating'
+
+body
+  background-color: #100F10
+  font-family: 'Montserrat', sans-serif
+
+*:root
+  --primary-color: #C8291E
+
+.bebas-neue-regular
+  font-family: "Bebas Neue", sans-serif
+  font-weight: 400
+  font-style: normal
+
+.input-login
+  --tw-border-opacity: 1
+  --tw-bg-opacity: 1
+  --tw-text-opacity: 1
+  background-color: rgb(var(--gray-1)/var(--tw-bg-opacity))
+  border-color: rgb(var(--gray-6)/var(--tw-border-opacity))
+  border-radius: .75rem
+  border-width: 2px
+  color: rgb(var(--content1)/var(--tw-text-opacity))
+  font-size: 1rem
+  height: 2.5rem
+  line-height: 1.5rem
+  outline: 2px solid transparent
+  outline-offset: 2px
+  padding-left: .75rem
+  padding-right: .75rem
+  width: 100%
+
+.input-login::-moz-placeholder
+  --tw-text-opacity: 1
+  color: rgb(var(--content3)/var(--tw-text-opacity))
+
+.input-login::placeholder
+  --tw-text-opacity: 1
+  color: rgb(var(--content3)/var(--tw-text-opacity))
+
+.input-login:disabled
+  opacity: 0.5
+  pointer-events: none
+  -webkit-user-select: none
+  -moz-user-select: none
+  user-select: none
+
+.notyf__toast--success
+  position: relative
+  z-index: 2
+  color: white // Assurez-vous que le texte se détache bien sur le fond
+  background: no-repeat center center / cover
+  // Utilisation d'un pseudo-élément pour l'arrière-plan flou
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: -1
+    // Ajustez cette URL en fonction de votre besoin
+    filter: blur(8px)
+    // Utilisation d'une couleur de fond pour les espaces vides
+    background: rgba(0, 0, 0, 0.8) no-repeat center
+

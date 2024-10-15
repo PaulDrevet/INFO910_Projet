@@ -1,0 +1,25 @@
+<div class="flex h-screen flex-row">
+    <!-- Image et Logo-->
+    <div class="w-7/12">
+        <app-pelliculum-logo-title class="absolute left-2 top-2" />
+        <img ngSrc="assets/fig.png" alt="Fight Club" class="h-screen w-full object-cover" height="720" width="1280" />
+    </div>
+
+    <!-- Left part -->
+    <form [formGroup]="registerForm" class="flex w-5/12 flex-col space-y-8 px-12 py-6">
+        <app-signup-progression [step]="step"></app-signup-progression>
+        <app-signup-information *ngIf="step === 1" [details]="currentGroup" class="h-full" (increment)="incrementStep()"></app-signup-information>
+        <app-signup-password *ngIf="step === 2" [details]="currentGroup" class="h-full" (increment)="incrementStep()"></app-signup-password>
+        <app-signup-preferences *ngIf="step === 3" [details]="currentGroup" class="h-full" (increment)="incrementStep()"></app-signup-preferences>
+        <app-signup-confirmation *ngIf="step === 4" [details]="currentGroup" class="h-full"></app-signup-confirmation>
+
+        <!-- Submit button -->
+        <div class="flex flex-col items-center justify-center space-y-1.5 pb-4">
+            @if(step !== 4){
+            <button class="btn btn-rounded w-4/6 hover:bg-primary" (click)="incrementStep()">Continuer</button>
+            } @else {
+            <button class="btn btn-rounded w-4/6 hover:bg-primary" (click)="submit()">S'inscrire</button>
+            }
+        </div>
+    </form>
+</div>

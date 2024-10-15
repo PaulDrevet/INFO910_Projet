@@ -1,0 +1,81 @@
+<div class="space-y-12">
+    <div class="flex flex-col items-center space-y-1">
+        <p class="text-4xl font-bold">Bienvenue</p>
+        @if (step == 1) {
+        <p class="text-xs opacity-70">1ère règle : Vous ne parlez pas de Pelliculum</p>
+        } @else if (step == 2) {
+        <p class="text-xs opacity-70">2ème règle : Vous ne parlez PAS de Pelliculum</p>
+        } @else if (step == 3) {
+        <p class="text-xs opacity-70">3ème règle : Si quelqu'un crie "stop", le combat est terminé</p>
+        } @else if (step == 4) {
+        <p class="text-xs opacity-70">4ème règle : Si c'est votre première fois sur Pelliculum, vous devez noter un film</p>
+        }
+    </div>
+
+    <div class="flex justify-center pl-9">
+        <div class="w-4/6">
+            <ol class="steps">
+                <li
+                    [ngClass]="{
+      'step-primary': true,
+      'step-active': step === 1,
+      'step-done': step > 1
+    }"
+                    class="step overflow-hidden">
+                    <div class="step-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                        </svg>
+                    </div>
+                </li>
+                <li
+                    [ngClass]="{
+      'step-primary': true,
+      'step-active': step === 2,
+      'step-done': step > 2
+    }"
+                    class="step overflow-hidden">
+                    <div class="step-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                            <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                            <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                        </svg>
+                    </div>
+                </li>
+                <li
+                    [ngClass]="{
+      'step-primary': true,
+      'step-active': step === 3,
+      'step-done': step > 3
+    }"
+                    class="step overflow-hidden">
+                    <div class="step-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                        </svg>
+                    </div>
+                </li>
+
+                <li
+                    [ngClass]="{
+      'step-primary': true,
+      'step-active': step === 4,
+      'step-done': step > 4
+    }"
+                    class="step overflow-hidden">
+                    <div class="step-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l5 5l10 -10" />
+                        </svg>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

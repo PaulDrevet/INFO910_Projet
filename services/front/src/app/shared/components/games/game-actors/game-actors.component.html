@@ -1,0 +1,55 @@
+<div class="relative flex flex-col">
+    <!-- Popover -->
+    <div class="popover popover-border absolute -right-1 -top-5 z-10">
+        <label class="popover-trigger my-2 h-5 w-5 cursor-pointer rounded-full bg-primary text-center" tabindex="0"></label>
+        <div class="popover-content popover-top-center" tabindex="0">
+            <div class="popover-arrow"></div>
+            <div class="space-y-2 pl-2">
+                <p class="text-sm">Une petite aide ?</p>
+                <button class="btn btn-outline-success btn-sm">Découvrir un acteur</button>
+            </div>
+        </div>
+    </div>
+    <div class="flex overflow-x-auto">
+        <table class="table table-compact max-w-4xl">
+            <thead>
+                <tr>
+                    <th class="w-4/12">SEXE</th>
+                    <th class="w-3/4">NOM</th>
+                    <th>AGE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (actorsDetail) { @for (actor of actorsDetail; track actor; let i = $index) {
+                <tr>
+                    @if (actor.gender == 2) {
+                    <th>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-gender-male" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 14m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                            <path d="M19 5l-5.4 5.4" />
+                            <path d="M19 5h-5" />
+                            <path d="M19 5v5" />
+                        </svg>
+                    </th>
+                    } @else {
+                    <th>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-gender-femme" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 9m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                            <path d="M12 14v7" />
+                            <path d="M7 18h10" />
+                        </svg>
+                    </th>
+                    } @if (actor.found) {
+                    <th>{{actor.name}}</th>
+                    } @else {
+                    <th>{{ actor.guessName }}</th>
+                    }
+                    <th>34</th>
+                </tr>
+                } }
+            </tbody>
+        </table>
+    </div>
+</div>

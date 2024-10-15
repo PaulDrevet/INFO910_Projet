@@ -1,0 +1,21 @@
+<div [formGroup]="details" class="flex h-full flex-col justify-between">
+    <div class="flex flex-col justify-center space-y-14">
+        <!-- Input fields -->
+        <div class="flex w-full flex-col space-y-3">
+            <div class="flex w-full flex-col space-y-0.5">
+                <label for="email" class="pl-1">Email</label>
+                <input id="email" type="email" formControlName="email" class="input-login focus:ring-1 focus:ring-primary" placeholder="Entrez votre email" />
+            </div>
+
+            <div class="flex w-full flex-col space-y-0.5 pt-4">
+                <label for="lastname" class="pl-1">Nom</label>
+                <input id="lastname" type="text" formControlName="lastname" class="input-login focus:ring-1 focus:ring-primary" placeholder="Entrez votre nom" />
+            </div>
+
+            <div class="flex w-full flex-col space-y-0.5 pt-4">
+                <label for="firstname" class="pl-1">Prénom</label>
+                <input id="firstname" type="text" formControlName="firstname" class="input-login focus:ring-1 focus:ring-primary" placeholder="Entrez votre prénom" />
+            </div>
+        </div>
+    </div>
+</div>

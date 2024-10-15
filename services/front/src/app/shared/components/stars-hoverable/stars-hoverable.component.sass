@@ -1,0 +1,31 @@
+$color-gold: #ffc41f
+$color-gold-light: #ffd560
+
+.comment-stars
+  display: flex
+  flex-direction: row-reverse
+  position: relative
+
+.comment-stars-input
+  display: none
+
+.comment-stars-input:checked
+  & ~ .comment-stars-view svg
+    fill: $color-gold
+
+.comment-stars-input:checked
+  & ~ .comment-stars-view:hover svg
+    fill: $color-gold-light
+
+.comment-stars-view
+  cursor: pointer
+  svg
+    fill: #ededef
+    width: var(--star-width)
+    height: var(--star-height)
+  &:hover svg, &:hover ~ .comment-stars-view svg
+    fill: $color-gold-light
+
+  &.is-half
+    position: absolute
+    transform: translateX(-50%)

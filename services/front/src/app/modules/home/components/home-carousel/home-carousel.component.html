@@ -1,0 +1,4 @@
+<div class="relative flex flex-col">
+    <app-home-carousel-backdrop *ngIf="movieSelected" [movie]="movieSelected"></app-home-carousel-backdrop>
+    <app-home-carousel-posters (selectMovie)="onSelectMovie($event)" [currentMovie]="movieSelected" [indexMovie]="indexMovie" [movies]="movies" />
+</div>

@@ -1,0 +1,156 @@
+<div class="flex flex-col space-y-1">
+    <!-- Critic number -->
+    <p class="text-2xl font-normal">{{ reviews.length }} critique{{ reviews.length > 1 ? 's' : '' }}</p>
+    <div class="relative flex space-x-16 border-t border-custom-border pb-2"></div>
+    <!-- Post a Review -->
+    @if(user.isLoggedIn()){
+    <div class="pb-2">
+        <div class="flex space-x-2">
+            <div class="avatar">
+                <img [src]="user.getProfileImage()" alt="photo" class="border-2 border-transparent" />
+            </div>
+            <div class="flex flex-grow flex-col space-y-1.5 pr-4">
+                <div class="relative">
+                    @if (!reviewed) {
+                    <input class="effect-3 text-xs" type="text" [(ngModel)]="comment" placeholder="Ajoutez un commentaire !" />
+                    } @else {
+                    <input class="effect-3 text-xs" type="text" placeholder="{{userReview.comment === '' ? 'Rajoutez un commentaire !' : userReview.comment}}" [(ngModel)]="comment" />
+                    }
+                    <span class="focus-border"></span>
+                    <div class="absolute -top-2 right-0">
+                        @if (this.spoiler) {
+                        <span class="tooltip tooltip-left cursor-pointer" data-tooltip="Ma critique spoil" (click)="toggleSpoiler()">
+                            <tabler-icon name="alert-triangle" style="width: 15px; color: #c8291e"></tabler-icon>
+                        </span>
+                        } @else {
+                        <span class="tooltip tooltip-left cursor-pointer" data-tooltip="Ma critique ne spoil pas" (click)="toggleSpoiler()">
+                            <tabler-icon name="alert-triangle" style="width: 15px"></tabler-icon>
+                        </span>
+                        }
+                    </div>
+                </div>
+                <div class="flex flex-row items-center justify-between">
+                    <app-stars-hoverable [rating]="note" [starSize]="0.8" (ratingChange)="changeRating($event)" />
+                    @if (!reviewed) {
+                    <button class="btn btn-primary btn-sm bg-primary hover:bg-red-900" (click)="postReview()">Publier</button>
+                    } @else {
+                    <div class="flex items-center space-x-2">
+                        <span class="tooltip tooltip-top flex items-center" data-tooltip="Supprimer ma critique">
+                            <tabler-icon name="trash" style="width: 20px; color: #c8291e; cursor: pointer" (click)="deleteReview()"></tabler-icon>
+                        </span>
+                        <button class="btn btn-primary btn-sm bg-primary hover:bg-red-900" (click)="updateReview()">Modifier</button>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    } @else{
+    <p class="text-center font-normal">Connectez-vous pour poster une critique</p>
+    }
+
+    <!-- Others Reviews -->
+    <div class="flex flex-col space-x-0">
+        <!-- No review -->
+        @if (reviews.length === 0) {
+        <p class="pt-2 text-center font-normal">Aucune critique pour le moment. Soyez le premier a en poster une pour ce film.</p>
+        } @for (review of reviews;track review;let last = $last;let first = $first) {
+
+        <!-- Rating part -->
+        <div *ngIf="review" class="flex flex-col space-y-2 py-1">
+            <!-- Avatar and user name -->
+            <div class="flex flex-row items-center space-x-3 truncate">
+                <a [routerLink]="'/'+User.getProfileUrl(review.user)" class="avatar avatar-md cursor-pointer">
+                    <img [src]="usersService.getProfilePicture(review.user)" alt="photo" class="border-2 border-transparent" />
+                </a>
+                <p class="text-md">Critique de {{ review.user.username }}</p>
+                <!-- Rating -->
+                <div class="flex flex-row items-baseline space-x-1.5">
+                    <app-stars size="w-5" [stars]="5" [value]="review.rating" />
+                    <!-- Time elapsed -->
+                    <p class="text-xs font-normal italic text-gray-500">{{ review.timeElapsed }}</p>
+                </div>
+            </div>
+            <!-- User comment -->
+            @if (review.spoiler) {
+            <div class="flex items-center justify-center space-x-3 text-primary">
+                <!-- Spoiler alert -->
+                <tabler-icon name="alert-triangle"></tabler-icon>
+                <p class="line-clamp line-clamp-3">SPOILER ALERT</p>
+                <tabler-icon name="alert-triangle"></tabler-icon>
+                <!-- Show spoiler -->
+                @if (!review.showSpoiler) {
+                <span class="tooltip tooltip-top" data-tooltip="Voir quand même">
+                    <tabler-icon name="triangle-inverted" style="width: 10px; color: white; cursor: pointer; align-content: center; fill: white" (click)="toggleShowSpoiler(review)"></tabler-icon>
+                </span>
+                } @else {
+                <span class="tooltip tooltip-top" data-tooltip="Cacher le spoiler">
+                    <tabler-icon name="triangle" style="width: 10px; color: white; cursor: pointer; align-content: center; fill: white" (click)="toggleShowSpoiler(review)"></tabler-icon>
+                </span>
+                }
+            </div>
+            <!-- Comment -->
+            @if (review.showSpoiler) {
+            <p class="line-clamp-3">{{ review.comment }}</p>
+            } } @else {
+            <p class="line-clamp-3">{{ review.comment }}</p>
+            }
+            <!-- Likes and comments -->
+            <div class="flex flex-grow items-end">
+                <div class="flex flex-row space-x-6">
+                    <!-- Likes -->
+                    <div class="flex cursor-pointer select-none flex-row items-center space-x-1">
+                        <tabler-icon (click)="addLikeToReview(review.id)" name="thumb-up" [style.color]="review.likes.includes(userName) ? 'green' : ''" style="width: 20px"></tabler-icon>
+                        <p>{{ review.likes.length }}</p>
+                    </div>
+                    <!-- Comments -->
+                    <div class="flex cursor-pointer select-none flex-row items-center space-x-1">
+                        <tabler-icon (click)="viewAnswers(review)" name="message" style="width: 20px"></tabler-icon>
+                        <p>{{ review.answers.length }}</p>
+                    </div>
+                    @if(user.isLoggedIn()){
+                        <button class="btn btn-primary btn-sm bg-primary hover:bg-red-900" (click)="toggleAnswer(review.id)">Répondre</button>
+
+                    }
+                </div>
+            </div>
+            @if (selectedReviewId === review.id) {
+            <div class="p-1">
+                <div class="flex space-x-2">
+                    <div class="avatar">
+                        <img [src]="user.getProfileImage()" alt="photo" class="border-2 border-transparent" />
+                    </div>
+                    <div class="flex flex-grow flex-col space-y-1.5 pr-4">
+                        <div class="relative">
+                            <input class="effect-3 text-xs" type="text" [(ngModel)]="answerComment" />
+                            <span class="focus-border"></span>
+                            <div class="absolute -top-0 right-0">
+                                @if (this.spoiler) {
+                                <span class="tooltip tooltip-left cursor-pointer" data-tooltip="Ma critique spoil" (click)="toggleSpoiler()">
+                                    <tabler-icon name="alert-triangle" style="width: 15px; color: #c8291e"></tabler-icon>
+                                </span>
+                                } @else {
+                                <span class="tooltip tooltip-left cursor-pointer" data-tooltip="Ma critique ne spoil pas" (click)="toggleSpoiler()">
+                                    <tabler-icon name="alert-triangle" style="width: 15px"></tabler-icon>
+                                </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="flex flex-row items-center justify-end">
+                            <button class="btn btn-primary btn-sm bg-primary hover:bg-red-900" (click)="postAnswer(review)">Publier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div class="px-8">
+                @if (review.showAnswers && review.answers.length > 0) {
+                <app-movie-details-rating-answers [id]="review.id"></app-movie-details-rating-answers>
+                }
+            </div>
+        </div>
+        <div class="relative flex space-x-16 border-b border-custom-light-border pb-1.5"></div>
+        }
+    </div>
+</div>

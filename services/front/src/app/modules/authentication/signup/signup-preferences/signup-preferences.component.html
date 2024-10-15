@@ -1,0 +1,13 @@
+<div [formGroup]="details" class="flex h-full flex-col justify-between">
+    <div class="flex justify-center">
+        <h2>Sélectionnez jusqu'à 5 catégories qui vous plaisent</h2>
+    </div>
+    <div class="grid grid-cols-3 gap-3">
+        @for (genre of filmGenres; track genre.name) {
+        <div (click)="selectGenre(genre)" class="flex cursor-pointer items-center justify-between space-x-2 rounded-md border-2 border-[#343434] bg-secondary p-1 transition-all hover:bg-primary" [ngClass]="{'border-primary' : genre.selected}">
+            <p class="truncate pl-0.5">{{ genre.name }}</p>
+            <i-tabler class="h-3 w-3" name="{{genre.icon}}"></i-tabler>
+        </div>
+        }
+    </div>
+</div>

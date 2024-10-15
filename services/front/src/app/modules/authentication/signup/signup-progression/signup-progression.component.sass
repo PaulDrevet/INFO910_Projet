@@ -1,0 +1,43 @@
+.steps
+  @apply flex w-full gap-2
+
+  &-vertical
+    @apply w-fit flex-col items-center gap-2
+
+  &-horizontal
+    @apply w-full flex-row items-center gap-6
+
+  .step
+    @apply flex w-full flex-row items-center gap-2 whitespace-nowrap
+
+    &:not(:last-child):after
+      @apply relative h-px min-h-0 w-full min-w-[2rem] flex-1 bg-gray-6 content-[""]
+
+    &-circle
+      @apply flex min-h-[2rem] min-w-[2rem] items-center justify-center rounded-full border border-gray-6 bg-gray-3 text-content1
+
+    &-primary.step-active .step-circle
+      @apply border-primary bg-primary text-white
+
+    &-done.step-primary .step-circle
+      @apply border-red-900 bg-red-900 text-white
+
+    &-secondary.step-active .step-circle, &-done.step-secondary .step-circle
+      @apply border-secondary bg-secondary text-white
+
+    &-success.step-active .step-circle, &-done.step-success .step-circle
+      @apply border-success bg-success text-white
+
+    &-error.step-active .step-circle, &-done.step-error .step-circle
+      @apply border-error bg-error text-white
+
+    &-warning.step-active .step-circle, &-done.step-warning .step-circle
+      @apply border-warning bg-warning text-white
+
+    &-info.step-active .step-circle, &-done.step-info .step-circle
+      @apply text-white
+
+    &-done
+      &.step-primary::after
+        @apply bg-red-4
+

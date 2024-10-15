@@ -1,0 +1,43 @@
+<div class="flex flex-col items-center justify-center bg-black p-24">
+    <!-- Title -->
+    <div class="relative">
+        <label for="modal-1" class="cursor-pointer">
+            <span class="absolute -right-7 -top-2 flex h-[16px] items-center justify-center rounded-full px-[6px] py-[2px] text-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help-hexagon" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                        d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
+                    <path d="M12 16v.01" />
+                    <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+                </svg>
+            </span>
+        </label>
+
+        <h2 class="text-center text-4xl">Classic mode</h2>
+    </div>
+    <div class="flex w-full flex-col items-center justify-center space-y-8 pt-10">
+        <app-game-genres [filmGenre]="filmGenres" [guessGenre]="guessGenres"></app-game-genres>
+        <app-game-date></app-game-date>
+        <app-game-actors class="w-1/2" [guessActors]="guessActors"></app-game-actors>
+    </div>
+
+    <button class="" (click)="test()">test</button>
+</div>
+
+<input class="modal-state" id="modal-1" type="checkbox" />
+<div class="modal">
+    <label class="modal-overlay" for="modal-1"></label>
+    <div class="modal-content flex flex-col gap-5">
+        <label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <h2 class="text-2xl">Comment jouer ?</h2>
+        <p>Le but du jeu est de trouver le film du jour !</p>
+        <p class="text-sm leading-7">
+            A chaque proposition de film que vous faites, nous vous révélons, si le film que vous avez proposé est contient un ou plusieurs acteurs communs avec le film du jour.
+            <br />
+            De même pour les genres : <span class="badge badge-md w-28 justify-center bg-green-500">Romance</span>
+            <br />
+            Nous vous indiquons également si le film que vous avez proposé est sorti avant ou après le film du jour.
+        </p>
+        <p>Vous avez 10 essais pour trouver le film du jour ! Bonne chance !</p>
+    </div>
+</div>

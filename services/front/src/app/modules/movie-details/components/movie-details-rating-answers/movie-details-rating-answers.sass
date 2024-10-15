@@ -1,0 +1,42 @@
+input[type="text"]
+  font: 15px/24px "Lato", Arial, sans-serif
+  width: 100%
+  box-sizing: border-box
+  letter-spacing: 1px
+  border: none
+  outline: none
+  background-color: transparent
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.3)
+
+
+.effect-3
+  border: 0
+  border-bottom: 0.5px solid #ccc
+
+
+.effect-3~.focus-border
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 1.5px
+  z-index: 99
+
+  &:before, &:after
+    content: ""
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 0
+    height: 100%
+    background-color: #C8291E
+    transition: 0.4s
+
+  &:after
+    left: auto
+    right: 0
+
+.effect-3:focus~.focus-border
+  &:before, &:after
+    width: 50%
+    transition: 0.4s

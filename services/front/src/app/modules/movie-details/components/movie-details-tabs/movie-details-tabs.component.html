@@ -1,0 +1,13 @@
+<div>
+    <!-- Tabs -->
+    <div class="relative flex space-x-16 pb-1.5">
+        <div id="marker" class="absolute -bottom-0.5 left-0 h-0.5 w-0 rounded bg-red-500 transition-all"></div>
+        <a id="cast-crew-info" (click)="selectTab('cast'); indicator($event)" class="tracking-wider" [class]="activeTab === 'cast' ? 'tab' : 'tab'">Cast</a>
+        <a (click)="selectTab('crew'); indicator($event)" class="tracking-wider" [class]="activeTab === 'crew' ? 'tab' : 'tab'">Crew</a>
+    </div>
+
+    <!-- Active Tab Content -->
+    <div class="pl-1 pt-10">
+        <ng-content></ng-content>
+    </div>
+</div>

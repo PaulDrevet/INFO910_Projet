@@ -1,0 +1,17 @@
+.photo-container
+  .edit-overlay
+    transition: opacity 0.3s
+    opacity: 0 // La surcouche est initialement cachée
+    position: absolute
+    inset: 0
+    background: rgba(0, 0, 0, 0.5) // Utiliser rgba pour la transparence
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50% // Assurez-vous que cette valeur correspond à celle de votre image pour un cercle parfait
+
+  &:hover
+    .edit-overlay
+      opacity: 1 // La surcouche apparaît au survol
+      cursor: pointer // Change le curseur pour indiquer un élément cliquable
+

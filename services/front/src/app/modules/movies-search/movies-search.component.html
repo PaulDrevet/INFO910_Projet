@@ -1,0 +1,7 @@
+<app-page [title]="'Youpi'">
+    <app-page-backdrop [movieBackdrop]="movies[0].backdrop_path" class="py-14">
+        <h2 class="2xl:text-4xl xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-semibold">{{genre?.name ?? 'Tous les films'}}</h2>
+        <p class="2xl:text-base xl:text-base lg:text-base md:text-sm sm:text-sm xs:text-xs">{{genre?.text}}</p>
+    </app-page-backdrop>
+    <app-search-list-movies [genreSelected]="genre" [movies]="movies"></app-search-list-movies>
+</app-page>

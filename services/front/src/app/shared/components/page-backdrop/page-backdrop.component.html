@@ -1,0 +1,11 @@
+<div>
+    <div class="z-0">
+        <app-backdrop *ngIf="movieBackdrop" [backdropPath]="movieBackdrop" class="opacity-45 object-cover object-center" />
+        <div class="absolute inset-0 bottom-0 bg-gradient-to-t from-[#100F10] to-transparent to-100%"></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#100F10] from-0% to-transparent to-40%"></div>
+        <div class="absolute inset-0 bg-gradient-to-tl from-[#100F10] from-0% to-transparent to-40%"></div>
+    </div>
+    <div [className]="class" class="z-10">
+        <ng-content/>
+    </div>
+</div>

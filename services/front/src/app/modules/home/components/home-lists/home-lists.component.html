@@ -1,0 +1,16 @@
+<!-- Best lists -->
+<div class="space-y-2 px-12">
+    <div class="flex flex-col space-y-0">
+        <div class="flex flex-row items-center justify-between">
+            <p class="text-2xl font-normal">Les listes populaires</p>
+            <p class="cursor-pointer">Voir plus</p>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-x-20">
+        @for (list of lists; track list.id){
+        <app-movie-list-card *ngIf="list" [list]="list"></app-movie-list-card>
+        }
+    </div>
+</div>

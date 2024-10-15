@@ -1,0 +1,21 @@
+<div class="dropdown pt-3">
+    <label tabindex="0" class="relative inline-block cursor-pointer">
+        <span class="absolute -right-2 -top-2 flex h-[20px] items-center justify-center rounded-full bg-primary px-[6px] py-[2px] text-xs text-white">3</span>
+        <i-tabler name="bell" />
+    </label>
+
+    <div class="dropdown-menu dropdown-menu-bottom-left w-72">
+        @for (item of items; track item.name; let last = $last) {
+        <a class="dropdown-item text-sm rounded-none {{!last ? 'border-b border-custom-light-border' : ''}}">
+            <div class="items-center">
+                <p>Votre ami <span class="font-bold">{{item.user}}</span> a {{item.name}} le film <span class="font-bold">{{item.film}}</span>.</p>
+                <p class="text-xs leading-5 text-gray-500">Il y a 30 secondes</p>
+            </div>
+        </a>
+        } @empty {
+        <a class="dropdown-item text-sm">
+            <p>Vous n'avez pas de notifications.</p>
+        </a>
+        }
+    </div>
+</div>

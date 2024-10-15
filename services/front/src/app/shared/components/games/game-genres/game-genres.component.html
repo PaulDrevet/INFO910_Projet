@@ -1,0 +1,10 @@
+<div class="flex">
+    <ul class="flex space-x-4">
+        @for (genre of foundGenre; track genre){ @if (genre[2]){
+        <span class="badge badge-md w-28 justify-center bg-green-500">{{genre[1]}}</span>
+
+        } @else {
+        <span class="badge badge-md w-28 justify-center">?</span>
+        } }
+    </ul>
+</div>

@@ -1,0 +1,73 @@
+<form [formGroup]="profileForm" (ngSubmit)="save()" class="space-y-8">
+    <!-- Profile picture part-->
+    <div class="flex items-center space-x-14">
+        <div>
+            <p>Votre photo</p>
+            <p class="text-xs text-gray-500">Visible des autres utilisateurs</p>
+        </div>
+
+        <!-- Modal profile picture -->
+        <div class="photo-container flex items-center space-x-4">
+            <label for="modal-profile-picture">
+                <div class="relative">
+                    <img [src]="userService.getProfileImage()" alt="photo" class="h-16 w-16 rounded-full" />
+                    <div class="edit-overlay absolute inset-0 hidden items-center justify-center rounded-full bg-black bg-opacity-50">
+                        <span class="icon-pencil text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                                <path d="M13.5 6.5l4 4" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Name part -->
+    <div class="flex items-center space-x-14">
+        <p class="w-1/48">Nom</p>
+        <div class="flex w-5/12 space-x-12">
+            <input formControlName="firstname" class="input transition focus:border-cinema" />
+            <input formControlName="lastname" class="input transition focus:border-cinema" />
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Email part-->
+    <div class="flex items-center space-x-14">
+        <p class="w-1/48">Email</p>
+        <input formControlName="email" class="input w-5/12 transition focus:border-cinema" />
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Nickname part -->
+    <div class="flex items-center space-x-14">
+        <p class="w-1/48">Pseudo</p>
+        <input formControlName="username" class="input w-5/12 transition focus:border-cinema" />
+    </div>
+
+    <div class="flex justify-end">
+        <button class="btn rounded-md bg-primary p-1.5">Enregistrer les modifications</button>
+    </div>
+</form>
+
+<!-- Modal changing profile picture -->
+<input class="modal-state" id="modal-profile-picture" type="checkbox" />
+<div class="modal">
+    <label class="modal-overlay" for="modal-profile-picture"></label>
+    <div class="modal-content flex max-w-3xl flex-col gap-5">
+        <label for="modal-profile-picture" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <div class="flex items-center gap-4 p-4">
+            <img [src]="photo" alt="photo" class="h-32 w-32 rounded-full" />
+            <input type="file" (change)="onFileSelected($event)" class="input-file" />
+        </div>
+
+        <label for="modal-profile-picture" (click)="save()" class="btn btn-block"> Sauvegarder </label>
+    </div>
+</div>

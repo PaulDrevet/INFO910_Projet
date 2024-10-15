@@ -1,0 +1,123 @@
+<div class="space-y-4">
+    <div class="flex flex-row items-center justify-between">
+        <!-- Left Part -->
+        <div class="flex flex-row items-center space-x-10">
+            <!-- Follows / Followers -->
+            <div class="relative flex">
+                <div id="markerNetwork" class="absolute bottom-0.5 left-0 h-0.5 w-0 rounded bg-red-500 transition-all"></div>
+                <a (click)="switchFollows(); indicatorTab($event)" class="tracking-w tab cursor-pointer" id="follows" [ngClass]="{'text-white' : activeTab === 'follows'}">Abonnements</a>
+                <a (click)="switchFollowers(); indicatorTab($event)" class="tracking-w tab cursor-pointer" id="followers" [ngClass]="{'text-white' : activeTab === 'followers'}">Abonnés</a>
+            </div>
+
+            <!-- Search Bar -->
+            <input class="input input-sm w-52 truncate" placeholder="Rechercher un utilisateur" [(ngModel)]="searchQuery" (input)="search()" />
+        </div>
+
+        <!-- Add Friend Button -->
+        <label class="btn btn-sm btn-rounded flex flex-row items-center justify-between space-x-2 border border-custom-border bg-transparent hover:bg-primary" for="modal-2">
+            <p class="truncate">Suivre un utilisateur</p>
+            <tabler-icon name="user-plus"></tabler-icon>
+        </label>
+    </div>
+
+    <!-- Table Friends -->
+    <div class="flex w-full overflow-x-auto">
+        <table class="table table-compact max-w-full">
+            <!--Header -->
+            <thead>
+                <tr>
+                    <th class="w-3/12">Nom</th>
+                    <th class="w-2/12">Visionnages</th>
+                    <th class="w-2/12">Listes</th>
+                    <th class="w-2/12">Likes</th>
+                    <th class="w-1/12"></th>
+                </tr>
+            </thead>
+
+            <!--Body -->
+            <tbody>
+                @for (user of shownContacts; track user; let index = $index) {
+                <tr>
+                    <!-- Name - Profile Picture -->
+                    <th class="flex space-x-2">
+                        <a [routerLink]="'/'+User.getProfileUrl(user)" class="avatar avatar-md cursor-pointer">
+                            <img [src]="usersService.getProfilePicture(user)" alt="photo" class="border-2 border-transparent" />
+                        </a>
+                        <div>
+                            <a [routerLink]="'/'+User.getProfileUrl(user)" class="cursor-pointer text-white transition-all hover:text-primary">{{ user.username }}</a>
+                            <p class="text-xs font-normal">{{ user.followsCount }} abonnement{{ user.followsCount > 1 ? 's' : '' }}, {{ user.followersCount }} abonné{{ user.followersCount > 1 ? 's' : '' }}</p>
+                        </div>
+                    </th>
+
+                    <!-- Watched -->
+                    <td>
+                        <div class="group flex w-min cursor-pointer items-center space-x-2">
+                            <tabler-icon name="eye-check" class="text-green-700"></tabler-icon>
+                            <p class="group-hover:text-white">{{user.reviewCount}}</p>
+                        </div>
+                    </td>
+
+                    <!-- Lists -->
+                    <td>
+                        <div class="group flex w-min cursor-pointer items-center space-x-2">
+                            <tabler-icon name="list" class="text-blue-800"></tabler-icon>
+                            <p class="group-hover:text-white">{{user.listCount}}</p>
+                        </div>
+                    </td>
+
+                    <!-- Likes -->
+                    <td>
+                        <div class="group flex w-min cursor-pointer items-center space-x-2">
+                            <tabler-icon name="heart" class="text-pink-700"></tabler-icon>
+                            <p class="group-hover:text-white">{{user.likeCount}}</p>
+                        </div>
+                    </td>
+
+                    <!-- Follow button -->
+                    <td>
+                        <div class="flex justify-end">
+                            <!-- Followed logic -->
+                            <span class="tooltip tooltip-left" data-tooltip="Se désabonner" *ngIf="user.isFollowed">
+                                <tabler-icon
+                                    [name]="hoverState[user.username] ? 'circle-x-filled' : 'circle-check-filled'"
+                                    class="cursor-pointer transition-all"
+                                    [ngClass]="{'text-red-500' : hoverState[user.username], 'text-green-500' : !hoverState[user.username]}"
+                                    (mouseenter)="hoverState[user.username] = true"
+                                    (mouseleave)="hoverState[user.username] = false"
+                                    (click)="user.isFollowed = false; removeFollow(user.username)">
+                                </tabler-icon>
+                            </span>
+
+                            <!-- Not Followed logic -->
+                            <span class="tooltip tooltip-left" data-tooltip="S'abonner" *ngIf="!user.isFollowed">
+                                <tabler-icon
+                                    [name]="hoverState[user.username] ? 'circle-check-filled' : 'circle-x-filled'"
+                                    class="cursor-pointer transition-all"
+                                    [ngClass]="{'text-red-500' : !hoverState[user.username], 'text-green-500' : hoverState[user.username]}"
+                                    (mouseenter)="hoverState[user.username] = true"
+                                    (mouseleave)="hoverState[user.username] = false"
+                                    (click)="user.isFollowed = true; addFollow(user.username)">
+                                </tabler-icon>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Friend Add -->
+<input class="modal-state" id="modal-2" type="checkbox" />
+<div class="modal w-screen">
+    <label class="modal-overlay" for="modal-2"></label>
+    <div class="modal-content flex max-w-3xl flex-col gap-5 px-14">
+        <label for="modal-2" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <h2 class="text-xl">Suivre un nouvel utilisateur</h2>
+        <input class="input" placeholder="Nom d'utilisateur" [(ngModel)]="friendName" />
+        <div class="flex gap-3">
+            <label class="btn btn-block transition-all hover:bg-primary" (click)="addFollow(friendName)">Confirmer</label>
+        </div>
+    </div>
+</div>

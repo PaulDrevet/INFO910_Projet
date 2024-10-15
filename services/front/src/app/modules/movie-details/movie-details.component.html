@@ -1,0 +1,74 @@
+<div *ngIf="currentMovie" class="flex flex-col space-y-32">
+    <div class="relative">
+        <!-- Backdrop with gradients -->
+        <app-backdrop [backdropPath]="currentMovie.backdrop_path" class="opacity-75" />
+        <div class="absolute inset-0 bottom-0 bg-gradient-to-t from-[#100F10] to-transparent to-100%"></div>
+
+        <!-- Poster and movie details -->
+        <div class="absolute -bottom-20 flex w-full flex-row space-x-4 xs:px-1 sm:px-1 md:px-8 lg:px-14 xl:px-40">
+            <!-- Poster -->
+            <img [src]="'https://image.tmdb.org/t/p/w220_and_h330_face' + currentMovie.poster_path" alt="poster du film" class="h-fit w-2/12 rounded-lg" />
+            <!-- Movie details -->
+            <div class="flex w-7/12 flex-col space-y-1.5">
+                <!-- Title -->
+                <div class="items-center">
+                    <p class="text-4xl font-bold">{{ currentMovie.title }}</p>
+                    <p class="text-sm">Réalisé par <a [routerLink]="['/actor', director?.id]" class="cursor-pointer hover:text-primary hover:underline">{{ director?.name }}</a></p>
+                </div>
+
+                <div class="flex flex-col space-y-1.5">
+                    <!-- Rating -->
+                    <div class="flex flex-row items-center space-x-1.5">
+                        <app-stars size="w-4" [stars]="5" [value]="currentMovie.vote_average > 5 ? Number((currentMovie.vote_average / 2).toFixed(1)) : Number(currentMovie.vote_average.toFixed(1))" />
+                        <p class="text-xs">{{ currentMovie.vote_average > 5 ? Number((currentMovie.vote_average / 2).toFixed(1)) : Number(currentMovie.vote_average.toFixed(1)) }} sur TMDB</p>
+                    </div>
+                    <!-- Date and duration -->
+                    <div class="flex flex-row space-x-4">
+                        <!-- Date -->
+                        <div class="flex flex-row items-center space-x-2">
+                            <p class="text-sm font-bold">Sortie:</p>
+                            <p class="cursor-pointer text-xs hover:text-primary hover:underline">{{ currentMovie.release_date.substring(0, 4) }}</p>
+                        </div>
+                        <!-- Duration -->
+                        <div class="flex flex-row items-center space-x-2">
+                            <p class="text-sm font-bold">Durée:</p>
+                            <p class="text-xs">{{ currentMovie.runtime }} minutes</p>
+                        </div>
+                    </div>
+
+                    <!-- Genres -->
+                    <div class="flex flex-row items-center space-x-2">
+                        <p class="text-sm font-bold">Genres:</p>
+                        @for (genre of genres;track genre.id;let first = $first;let last = $last) {
+                        <span class="cursor-pointer text-xs hover:text-primary hover:underline" [ngClass]="{'border-r border-custom-border pr-2' : !last}"> {{ genre.name }} </span>
+                        }
+                    </div>
+                    <!-- Overview -->
+                    <p class="line-clamp-4 text-lg">{{ currentMovie.overview }}</p>
+                </div>
+            </div>
+            <!-- Right Part -->
+            <div class="w-3/12 rounded border border-custom-border bg-transparent">
+                <app-movie-details-interactions *ngIf="currentMovie" [movie]="currentMovie" [reviews]="reviews" class="w-full"></app-movie-details-interactions>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of the page -->
+    <div class="flex flex-col space-y-10 xs:px-1 sm:px-1 md:px-8 lg:px-14 xl:px-40">
+        <!-- Crew and Cast -->
+        <div class="w-full">
+            <!-- Tabs Cast / Crew -->
+            <app-tabs tabsStyle="flex relative">
+                <app-tab name="Cast">
+                    <app-movie-details-cast-tabs [cast]="cast"></app-movie-details-cast-tabs>
+                </app-tab>
+                <app-tab name="Crew">
+                    <app-movie-details-crew-tabs [crew]="crew"></app-movie-details-crew-tabs>
+                </app-tab>
+            </app-tabs>
+        </div>
+
+        <app-movie-details-rating [id]="currentMovie.id" [reviews]="reviews"></app-movie-details-rating>
+    </div>
+</div>

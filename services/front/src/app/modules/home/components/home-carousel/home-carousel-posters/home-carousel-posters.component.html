@@ -1,0 +1,16 @@
+<div class="absolute mr-12 h-72 px-12 transition-all xs:-bottom-80 sm:-bottom-72 md:-bottom-64 lg:-bottom-56 xl:-bottom-48">
+    <div class="flex flex-row space-x-12 transition-transform duration-700" [style.transform]="'translateX(-' + (currentPosition) + 'px)'">
+        @for (movie of movies; track movie.id; let i = $index){
+        <img
+            (click)="goToMovie(i)"
+            [alt]="movie.title"
+            [src]="'https://image.tmdb.org/t/p/w220_and_h330_face'+movie.poster_path"
+            [ngClass]="{
+            'brightness-50 rounded-lg transition-all cursor-pointer': true,
+            'brightness-90 scale-[1.1]' : indexMovie === i,
+            'hover:brightness-95 hover:scale-[1.05]' : indexMovie !== i
+          }"
+            [style]="'min-width:' + posterWidth + 'px;'" />
+        }
+    </div>
+</div>

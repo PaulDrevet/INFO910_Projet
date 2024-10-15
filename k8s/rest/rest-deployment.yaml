@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: restapi
-        image: <ton_image_docker>  # Remplace par ton image Docker
+        image: realdragonma/pelliculum-rest
         ports:
         - containerPort: 3000
         env:

@@ -18,7 +18,7 @@ spec:
       - name: aegis-web
         image: realdragonma/aegis-web:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources:
           requests:
             memory: "64Mi"

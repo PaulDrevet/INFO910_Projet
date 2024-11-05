@@ -20,7 +20,7 @@ RUN npm run build -- --output-path=dist/Aegis-web
 FROM nginx:alpine
 
 # Copier les fichiers générés par Angular dans le répertoire où Nginx s'attend à les trouver
-COPY --from=build /app/dist/Aegis-web /app
+COPY --from=build /app/dist/Aegis-web/browser /app
 
 # Copier le fichier de configuration nginx.conf dans le répertoire de configuration de Nginx
 COPY nginx.conf /etc/nginx/nginx.conf

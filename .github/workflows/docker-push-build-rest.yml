@@ -1,4 +1,4 @@
-name: Build and Push Pelliculum Rest Docker Image
+name: Build and Push Aegis Rest Docker Image
 
 on:
   push:
@@ -27,12 +27,13 @@ jobs:
 
     # Step 4: Build the Docker image and tag it (replace with your Docker Hub username/repo)
     - name: Build and tag Docker image
+      working-directory: ./services/rest
       run: |
-        docker build -t realdragonma/pelliculum-rest:latest ./services/rest
-        docker tag realdragonma/pelliculum-rest:latest realdragonma/pelliculum-rest:${{ github.sha }}
+        docker build -t realdragonma/aegis-rest:latest .
+        docker tag realdragonma/aegis-rest:latest realdragonma/aegis-rest:${{ github.sha }}
 
     # Step 5: Push the Docker image to Docker Hub
     - name: Push Docker image
       run: |
-        docker push realdragonma/pelliculum-rest:latest
-        docker push realdragonma/pelliculum-rest:${{ github.sha }}
+        docker push realdragonma/aegis-rest:latest
+        docker push realdragonma/aegis-rest:${{ github.sha }}

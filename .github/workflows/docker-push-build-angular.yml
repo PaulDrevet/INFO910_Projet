@@ -22,6 +22,7 @@ jobs:
     
     # Step 3: Install dependencies and build Angular
     - name: Install dependencies and build Angular
+      working-directory: ./services/front
       run: |
         npm install
         npm run build -- --output-path=dist/Aegis-web
@@ -34,8 +35,9 @@ jobs:
 
     # Step 4: Build the Docker image and tag it (replace with your Docker Hub username/repo)
     - name: Build and tag Docker image
+      working-directory: ./services/front
       run: |
-        docker build -t realdragonma/aegis-web:latest ./services/front
+        docker build -t realdragonma/aegis-web:latest .
         docker tag realdragonma/aegis-web:latest realdragonma/aegis-web:${{ github.sha }}
 
     # Step 5: Push the Docker image to Docker Hub

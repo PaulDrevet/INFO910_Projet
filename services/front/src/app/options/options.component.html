@@ -1,0 +1,17 @@
+
+<div class="flex flex-row items-center justify-center">
+  <p class="pt-2 pr-4 text-xl">Password length</p>
+  <mat-slider min="6" max="24" step="1" discrete>
+    <input matSliderThumb [(ngModel)]="sliderValue" (ngModelChange)="onSliderChange()">
+  </mat-slider>
+</div>
+
+<div class="mt-16 grid grid-cols-2 gap-10 justify-center">
+  <mat-checkbox [(ngModel)]="special" (ngModelChange)="onSpecialChange()" color="primary">Special characters !&#64;#$%^&*</mat-checkbox>
+
+  <mat-checkbox [(ngModel)]="numbers" (ngModelChange)="onNumbersChange()" color="primary">Numbers 0-9</mat-checkbox>
+
+  <mat-checkbox [(ngModel)]="uppercase" (ngModelChange)="onUppercaseChange()" color="primary">Uppercase A-Z</mat-checkbox>
+
+  <mat-checkbox [(ngModel)]="lowercase" (ngModelChange)="onLowercaseChange()" color="primary">Lowercase a-z</mat-checkbox>
+</div>

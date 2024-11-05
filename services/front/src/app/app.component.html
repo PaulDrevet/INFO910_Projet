@@ -1,9 +1,12 @@
-<div class="h-full">
-    <div class="flex min-h-screen flex-col">
-        <app-header *ngIf="!isInLoginOrRegisterPage()"></app-header>
-        <div class="h-full grow">
-            <router-outlet class="h-full"></router-outlet>
-        </div>
-        <app-footer *ngIf="!isInLoginOrRegisterPage()"></app-footer>
-    </div>
+<div class="flex flex-col items-center h-full w-full mt-20 space-y-24">
+  <p class="text-secondary font-bold text-6xl">
+    Random Password Generator
+  </p>
+  <div class="flex space-x-10 w-full justify-center h-16">
+    <app-input class="w-full max-w-md"></app-input>
+    <app-button></app-button>
+  </div>
+  <div class="">
+    <app-options></app-options>
+  </div>
 </div>

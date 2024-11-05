@@ -1,4 +1,4 @@
-name: Build and Push Pelliculum Web Docker Image
+name: Build and Push Aegis Web Docker Image
 
 on:
   push:
@@ -13,6 +13,7 @@ jobs:
     # Step 1: Checkout the code from the repository
     - name: Checkout repository
       uses: actions/checkout@v2
+
     # Step 2: Set up Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -23,7 +24,7 @@ jobs:
     - name: Install dependencies and build Angular
       run: |
         npm install
-        npm run build -- --output-path=dist/Pelliculum-web --prod
+        npm run build -- --output-path=dist/Aegis-web
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
@@ -34,11 +35,11 @@ jobs:
     # Step 4: Build the Docker image and tag it (replace with your Docker Hub username/repo)
     - name: Build and tag Docker image
       run: |
-        docker build -t realdragonma/pelliculum-web:latest ./services/front
-        docker tag realdragonma/pelliculum-web:latest realdragonma/pelliculum-web:${{ github.sha }}
+        docker build -t realdragonma/aegis-web:latest ./services/front
+        docker tag realdragonma/aegis-web:latest realdragonma/aegis-web:${{ github.sha }}
 
     # Step 5: Push the Docker image to Docker Hub
     - name: Push Docker image
       run: |
-        docker push realdragonma/pelliculum-web:latest
-        docker push realdragonma/pelliculum-web:${{ github.sha }}
+        docker push realdragonma/aegis-web:latest
+        docker push realdragonma/aegis-web:${{ github.sha }}

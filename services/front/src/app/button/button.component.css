@@ -1,0 +1,4 @@
+.custom-snackbar {
+  max-width: 400px; /* Adjust the max-width to your desired size */
+  min-width: 400px; /* Adjust the min-width if needed */
+}

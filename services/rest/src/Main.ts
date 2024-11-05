@@ -60,7 +60,7 @@ class Main {
         this.logger = new Logger({
             displayFilePath: "hidden",
             displayFunctionName: false,
-            prefix: ["Pelliculum - RAPI |"],
+            prefix: ["aegis - RAPI |"],
             overwriteConsole: true,
             dateTimeTimezone: "Europe/Paris",
             dateTimePattern: "day/month/year hour:minute:second.millisecond",

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pelliculum-web-deployment
+  name: aegis-web-deployment
   labels:
-    app: pelliculum-web
+    app: aegis-web
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: pelliculum-web
+      app: aegis-web
   template:
     metadata:
       labels:
-        app: pelliculum-web
+        app: aegis-web
     spec:
       containers:
-      - name: pelliculum-web
-        image: your-docker-username/pelliculum-web:latest
+      - name: aegis-web
+        image: realdragonma/aegis-web:latest
         ports:
         - containerPort: 80
         resources:

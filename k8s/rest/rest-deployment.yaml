@@ -14,12 +14,22 @@ spec:
     spec:
       containers:
       - name: restapi
-        image: realdragonma/pelliculum-rest
+        image: realdragonma/aegis-rest
         ports:
         - containerPort: 3000
         env:
-        - name: MONGO_URL
-          value: "mongodb://Pelliculum:OLZf54eOZVjz5@mongodb:27017/pelliculum"
+          - name: MONGO_URL
+            value: "mongodb://$(MONGO_USER):$(MONGO_PASS)@mongodb:27017/aegis"
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_INITDB_ROOT_USERNAME
+          - name: MONGO_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_INITDB_ROOT_PASSWORD
         resources:
           requests:
             memory: "64Mi"

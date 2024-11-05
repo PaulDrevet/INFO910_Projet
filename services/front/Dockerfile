@@ -20,7 +20,10 @@ RUN npm run build -- --output-path=dist/Aegis-web
 FROM nginx:alpine
 
 # Copier les fichiers générés par Angular dans le répertoire où Nginx s'attend à les trouver
-COPY --from=build /app/dist/Aegis-web /usr/share/nginx/html
+COPY --from=build /app/dist/Aegis-web /app
+
+# Copier le fichier de configuration nginx.conf dans le répertoire de configuration de Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exposer le port 80
 EXPOSE 80

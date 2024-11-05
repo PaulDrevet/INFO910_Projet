@@ -26,7 +26,7 @@ COPY --from=build /app/dist/Aegis-web /app
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exposer le port 80
-EXPOSE 80
+EXPOSE 8080
 
 # Lancer Nginx
 CMD ["nginx", "-g", "daemon off;"]

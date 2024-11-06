@@ -18,8 +18,8 @@ spec:
         ports:
         - containerPort: 3000
         env:
-          - name: MONGO_URL
-            value: "mongodb://$(MONGO_USER):$(MONGO_PASS)@mongodb:27017/aegis"
+          - name: MONGO_URI
+            value: "mongodb://$(MONGO_USER):$(MONGO_PASS)@mongodb:27017/$(MONGO_DB)?authSource=admin"
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
@@ -30,6 +30,11 @@ spec:
               secretKeyRef:
                 name: mongodb-secret
                 key: MONGO_INITDB_ROOT_PASSWORD
+          - name: MONGO_DB
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_INITDB_DATABASE
         resources:
           requests:
             memory: "64Mi"

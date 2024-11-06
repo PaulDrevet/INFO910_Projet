@@ -1,36 +1,47 @@
-# mongodb-statefulset.yaml
-#
-# Ce fichier définit un StatefulSet Kubernetes pour MongoDB. 
-# Un StatefulSet assure que les pods ont un identifiant stable et un stockage persistant dédié.
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongodb  # Le nom du StatefulSet.
+  name: mongodb
 spec:
-  serviceName: mongodb  # Le service utilisé pour la découverte des pods MongoDB (doit correspondre au nom du service défini dans mongodb-services.yaml).
-  replicas: 1  # Nombre de réplicas du pod MongoDB. 1 signifie qu'il y aura un seul pod MongoDB.
+  serviceName: mongodb
+  replicas: 1
   selector:
     matchLabels:
-      app: mongodb  # Sélectionne les pods qui ont l'étiquette "app: mongodb".
+      app: mongodb
   template:
     metadata:
       labels:
-        app: mongodb  # Ajoute l'étiquette "app: mongodb" aux pods pour qu'ils soient liés au service.
+        app: mongodb
     spec:
       containers:
-      - name: mongodb  # Nom du conteneur dans le pod.
-        image: mongo:latest  # Image Docker officielle de MongoDB.
+      - name: mongodb
+        image: mongo:latest
         ports:
-        - containerPort: 27017  # Le port sur lequel MongoDB écoute à l'intérieur du conteneur.
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: MONGO_INITDB_ROOT_PASSWORD
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: MONGO_INITDB_DATABASE
         volumeMounts:
-        - name: mongodb-data  # Nom du volume monté (correspond à la définition de PVC dans volumeClaimTemplates).
-          mountPath: /data/db  # Le répertoire à l'intérieur du conteneur où MongoDB stocke ses données.
+        - name: mongodb-data
+          mountPath: /data/db
   volumeClaimTemplates:
   - metadata:
-      name: mongodb-data  # Nom du PVC à créer automatiquement pour chaque pod du StatefulSet.
+      name: mongodb-data
     spec:
-      accessModes: [ "ReadWriteOnce" ]  # Le volume ne peut être monté qu'en lecture-écriture sur un seul nœud à la fois.
+      accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 1Gi  # Quantité de stockage demandé pour chaque PVC (doit être aligné avec mongodb-pvc.yaml).
+          storage: 1Gi

@@ -11,7 +11,7 @@ export class AxiosService {
   constructor() {
 
     this.api = axios.create({
-      baseURL: 'http://restapi-service:3000',
+      baseURL: 'http://127.0.0.1:30080',
       timeout: 5000
     });
   }

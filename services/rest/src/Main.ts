@@ -12,7 +12,7 @@ class Main {
 
     constructor() {
         this.webserver = new Webserver({
-            port: parseInt(process.env.PORT ?? "3060"),
+            port: parseInt(process.env.PORT ?? "3000"),
             middlewares: [
                 {
                     import: import("@fastify/sensible"),

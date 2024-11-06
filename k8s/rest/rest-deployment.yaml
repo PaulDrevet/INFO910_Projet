@@ -35,6 +35,8 @@ spec:
               secretKeyRef:
                 name: mongodb-secret
                 key: MONGO_INITDB_DATABASE
+          - name: PORT
+            value: "3000"
         resources:
           requests:
             memory: "64Mi"

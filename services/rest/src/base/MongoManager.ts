@@ -8,6 +8,7 @@ export default class MongoManager {
     public async connect() {
         try {
             mongoose.set("strictQuery", true);
+            console.log(process.env.MONGO_URI ?? "mongodb://root:example@localhost:27017/test?authSource=admin")
             this.mongo = (await connect(process.env.MONGO_URI ?? "mongodb://root:example@localhost:27017/test?authSource=admin")).connection
             this.mongo?.useDb("aegis")
             Main.getLogger().info("Successfully connected to MongoDB !");

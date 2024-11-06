@@ -19,7 +19,7 @@ spec:
         - containerPort: 3000
         env:
           - name: MONGO_URI
-            value: "mongodb://$(MONGO_USER):$(MONGO_PASS)@mongodb:27017/$(MONGO_DB)?authSource=admin"
+            value: "mongodb://root:example@mongodb:27017/test?authSource=admin"
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
@@ -35,8 +35,6 @@ spec:
               secretKeyRef:
                 name: mongodb-secret
                 key: MONGO_INITDB_DATABASE
-          - name: PORT
-            value: "3000"
         resources:
           requests:
             memory: "64Mi"

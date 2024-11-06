@@ -7,9 +7,8 @@ export default class MongoManager {
 
     public async connect() {
         try {
-            if(!process.env.MONGO_URI) throw new Error("MONGO_URI is not defined !");
             mongoose.set("strictQuery", true);
-            this.mongo = (await connect(process.env.MONGO_URI)).connection
+            this.mongo = (await connect(process.env.MONGO_URI ?? "mongodb://root:example@localhost:27017/test?authSource=admin")).connection
             this.mongo?.useDb("aegis")
             Main.getLogger().info("Successfully connected to MongoDB !");
         } catch (error) {

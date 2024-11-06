@@ -1,12 +1,38 @@
-<div class="flex flex-col items-center h-full w-full mt-20 space-y-24">
-  <p class="text-secondary font-bold text-6xl">
+<div class="flex flex-col items-center h-full w-full space-y-24">
+  <p class="text-secondary font-bold text-6xl pt-20">
     Random Password Generator
   </p>
+  @if (axiosService.isLoggedIn()) {
   <div class="flex space-x-10 w-full justify-center h-16">
     <app-input class="w-full max-w-md"></app-input>
     <app-button></app-button>
   </div>
-  <div class="">
+  <div>
     <app-options></app-options>
   </div>
+  } @else {
+  @if (loginType === 'login') {
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="flex flex-col space-y-2">
+    <label for="email" class="text-secondary">Email:</label>
+    <input id="email" formControlName="email" type="email" class="input-field" required>
+
+    <label for="password" class="text-secondary">Password:</label>
+    <input id="password" formControlName="password" type="password" class="input-field" required>
+
+    <button type="submit" class="btn-primary">Se connecter</button>
+    <button type="button" (click)="loginType = 'register'" class="btn-secondary">Vous n'avez pas de compte ?</button>
+  </form>
+  } @else {
+  <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col space-y-2">
+    <label for="email" class="text-secondary">Email:</label>
+    <input id="email" formControlName="email" type="email" class="input-field" required>
+
+    <label for="password" class="text-secondary">Password:</label>
+    <input id="password" formControlName="password" type="password" class="input-field" required>
+
+    <button type="submit" class="btn-primary">S'inscrire</button>
+    <button type="button" (click)="loginType = 'login'" class="btn-secondary">Vous avez déjà un compte ?</button>
+  </form>
+  }
+  }
 </div>

@@ -8,19 +8,17 @@ export class AxiosService {
 
   private api: AxiosInstance;
 
+  // Définir les URLs principales et de secours
+  private primaryBaseUrl: string = 'http://127.0.0.1:3000';
+  private fallbackBaseUrl: string = 'http://185.229.202.135:30080';
+
   constructor() {
-    // Définir les URLs principales et de secours
-    const primaryBaseUrl: string = 'http://127.0.0.1:3000';
-    const fallbackBaseUrl: string = 'http://185.229.202.135:30080';
 
     // Créer une instance Axios avec l'URL principale
     this.api = axios.create({
-      baseURL: primaryBaseUrl,
+      baseURL: this.primaryBaseUrl,
       timeout: 5000
-    });
-
-    // Tester la connexion à l'URL principale et changer si elle est inaccessible
-    this.testApiConnection(primaryBaseUrl, fallbackBaseUrl);
+    });  
   }
 
   // Méthode pour tester la connexion à l'API
@@ -40,6 +38,7 @@ export class AxiosService {
 
   // Méthode pour enregistrer un utilisateur
   public async register(options: { firstname: string, lastname: string, email: string, password: string }) {
+    await this.testApiConnection(this.primaryBaseUrl, this.fallbackBaseUrl);
     try {
       const route = await this.api.post('/user/register', options);
       if (route.status === 201) {
@@ -54,6 +53,7 @@ export class AxiosService {
 
   // Méthode pour connecter un utilisateur
   public async login(options: { email: string, password: string }) {
+    await this.testApiConnection(this.primaryBaseUrl, this.fallbackBaseUrl);
     try {
       const route = await this.api.post('/user/login', options);
       if (route.status === 200) {

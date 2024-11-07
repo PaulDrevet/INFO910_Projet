@@ -10,7 +10,7 @@ export class AxiosService {
 
   // Définir les URLs principales et de secours
   private primaryBaseUrl: string = 'http://127.0.0.1:3000';
-  private fallbackBaseUrl: string = 'http://185.229.202.135:30080';
+  private fallbackBaseUrl: string = 'https://api-aegis.mathis-mazoyer.fr';
 
   constructor() {
 
